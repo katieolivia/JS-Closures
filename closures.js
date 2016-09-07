@@ -1,9 +1,10 @@
 var outer = function(){
   var name = 'Tyler';
   return function(){
-    return 'The original name was ' + name;
+    return 'The original name was ' + name
   }
 };
+
 
 
 //////////////////PROBLEM 1////////////////////
@@ -11,13 +12,14 @@ var outer = function(){
 // Above you're given a function that returns another function which has a closure over the name variable.
 // Invoke outer saving the return value into another variable called 'inner'.
 
-// Code Here
+var inner = outer();
+
 
 
 //Once you do that, invoke inner.
 
-  //Code Here
 
+inner();
 
 
 //////////////////PROBLEM 2////////////////////
@@ -35,8 +37,9 @@ var callFriend = function(){
 // Above you're given a callFriend function that returns another function.
 // Create a makeCall function that when invoked logs  'Calling Jake at 435-215-9248' in your console.
 
-  //Code Here
+var makeCall = callFriend();
 
+makeCall('435-215-9248');
 
 
 
@@ -51,14 +54,23 @@ var callFriend = function(){
   Write a function called makeCounter that makes the following code work properly.
 */
 
-//Code Here
+function makeCounter() {
+  var value = 0;
+  function addOne() {
+    value++;
+    return value
+  }
+  return addOne;
+}
+
+var count = makeCounter();
 
 //Uncomment this once you make your function
 //   var count = makeCounter();
-//   count(); // 1
-//   count(); // 2
-//   count(); // 3
-//   count(); // 4
+  count(); // 1
+  count(); // 2
+  count(); // 3
+  count(); // 4
 
 
 
@@ -67,21 +79,30 @@ var callFriend = function(){
 
 // Inside the function called counterFactory
 // return two functions that implement up/down counter.
-// The first function is called inc, this function is responsible for incrementing the value once
+// The first function is called inc, this function is ressponsible for incrementing the value once
 // The second function is called dec, this function is responsible for decrementing the value by one
 // You will need to use the module pattern to achieve this.
 
 function counterFactory(value) {
-
-  // Code here.
-
-
-  return {
+  function inc() {
+    value++;
+    return value
   }
+  function dec() {
+    value--;
+    return value
+  }
+  return {
+    inc: inc,
+    dec: dec
+  }
+
 }
 
 
-counter = counterFactory(10);
+var counter = counterFactory(10);
+console.log(counter.inc());
+console.log(counter.dec());
 
 
 
@@ -93,14 +114,11 @@ counter = counterFactory(10);
 
   function motivation(firstname, lastname){
 
-    var welcomeText = 'You\'re doing awesome, keep it up ';
-
-    // code message function here.
-
-
-    //Uncommment this to return the value of your invoked message function
-
-    //return message()
+    var welcomeText = "You're doing awesome, keep it up ";
+    function message () {
+      return welcomeText + firstname + ' ' + lastname
+    }
+    return message()
   }
 
   motivation('Billy', 'Bob'); // 'Your doing awesome keep it up Billy Bob
@@ -112,27 +130,23 @@ counter = counterFactory(10);
 // Inside the return create a publicMethod property that is a function that invokes privateMethod. After you create the privateMethod
 // Invoke it by calling module.publicMethod(); outside the module scope
 
-  var module = (function() {
+  function module() {
     var person = {
       name: "phillip",
       age: 29,
       location: 'Utah'
     };
 
-    var privateMethod = function(){
+    function privateMethod () {
       return "Hi, I'm " + person.name + ", age " + person.age + " from " + person.location;
-    };
+    }
+    return privateMethod;
+}
 
-    // Anything that is being returned is made public and can be invoked from outside our lexical scope
 
-    return {
-      // Code here.
-    };
+var closureDemo = module();
 
-  })();
-
-//Uncomment this after you create your public method
-//   module.publicMethod();
+closureDemo();
 
 
 
@@ -161,7 +175,14 @@ timeOutCounter();
 
 //////////////////PROBLEM 8////////////////////
 
-var funcArray = [];
+var funcArray = [0,1,2,3,4,5];
+
+function position () {
+  return 
+}
+
+
+
 
 /*
   Make the following code work
@@ -175,3 +196,4 @@ var funcArray = [];
 
   *Hint: Don't let this fool you. Break down what's really happening here.
 */
+
